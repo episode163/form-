@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>form单选表单的优化</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="Css/reset.css">
+    <style type="text/css">
+		body{
+			font: 12px/22px '微软雅黑';
+		}
+		.type{
+			border: 1px solid #DFDFDF;
+			height: 32px;
+			width: 400px;
+			margin: 30px auto;
+		}
+		.type dl{
+			height: 32px;
+			line-height: 32px;
+			margin: auto;
+			padding-left: 15px;
+		}
+		.type dt{
+			float : left;
+		}
+		.type dd{
+			float : left;
+			margin : 0 10px 0 8px;
+			padding-left: 23px;
+		}
+		a{
+			color: #000;
+			text-decoration: none;
+			
+		}
+		.type dd a{
+			display: block;
+			position: relative;
+			padding-left: 23px;
+			
+		}
+		.type dd a:hover{
+			color: #cc0000;
+			text-decoration: underline;
+
+		}
+		.type dd a:hover b{
+			background-position: -14px -118px;
+		}
+		.type .selected b,.type .selected a:hover b{
+			background-position: -14px -218px;
+		}
+		.type dd b{
+			display: block;
+			width: 20px;
+			height: 20px;
+			background: url(images/radiobutton.gif) no-repeat -14px -18px;
+			position: absolute;top: 6px;
+			left: 0;
+		}
+    </style>
+    <script type="text/javascript">
+    	function show(index) {
+    		var dd = document.getElementById('type').getElementsByTagName('dd');
+    		for( var i=0, len = dd.length; i < len; i+=1 ) {
+    			if(i === index) {
+    				dd[i].className = 'selected';
+    			}
+    			else {
+    				dd[i].className = null;
+    			}
+    		}
+    	}
+    </script>
+</head>
+<body>
+<div class="type">
+	<!-- <form action="#" method="post" name='typeFrom'>
+		<label>配送类型</label>
+		<input type='radio' name='type'/><label>全部</label>
+		<input type='radio' name='type'/><label>京东配送</label>
+		<input type='radio' name='type'/><label>第三方配送</label>
+	</form> -->
+	<dl id='type'> 
+		<dt>配送类型:</dt>
+		<dd class="selected" ><a href="#" onclick="show(0)"><b></b>全部</a></dd>
+		<dd><a href="#" onclick="show(1)"><b></b>京东配送</a></dd>
+		<dd><a href="#" onclick="show(2)"><b></b>第三方配送</a></dd>
+	</dl>
+</div>
+</body>
+</html>
