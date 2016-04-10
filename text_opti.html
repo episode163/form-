@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>表单美化--文本框</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!-- <link rel="stylesheet" type="text/css" href="Css/reset.css"> -->
+    <style type="text/css">
+		body{
+			font: 14px/28px '微软雅黑';
+		}
+		.contact{
+			width: 700px;
+			height: auto;
+			background: #F6F6F6;
+			margin: 40px auto;
+			padding: 10px;
+		}
+		.contact *:focus{
+			outline: none;
+			/*chrome浏览器会自动渲染边框的颜色导致伪类focus时边框的颜色是蓝色和自己设定颜色的重合*/
+		}
+		.contact ul{
+			padding: 0;
+			width: 700px;
+			/*border-bottom: 1px solid #DFDFDF;*/
+
+			list-style-type: none; 
+		}
+		.contact ul li{
+			padding-left: 0;
+			border-bottom: 1px solid #DFDFDF;
+			padding: 12px;
+		}
+		.contact ul li label{
+			width: 120px;
+			display: inline-block;
+			float: left;
+		}
+		.contact ul li input[type=text]{
+			width: 220px;
+			height: 20px;
+			border: 1px solid #AAA;
+			padding: 3px 8px;
+			color: #CCC;
+			background: url(images/red_asterisk.png) no-repeat #FFF 98%;
+			/*背景为白色*/
+			border-radius: 5px;
+			transition: padding .25s; 
+			-o-transiton: padding .25s;
+			-moz-transition: padding .25s;
+			--webkit-transition: padding .25s;
+			/*四大浏览器的兼容*/
+		}
+		.contact ul li input:focus{
+			border-color: #C00;
+			background: url(images/invalid.png) no-repeat #FFF 98%;
+			padding-right: 70px;
+			/*使用transition属性以后input[text]会议.25s的速度运动,改变padding-right的值*/
+		}
+    </style>
+    <script type="text/javascript">
+
+   
+    </script>
+</head>
+
+<body>
+<div class="contact">
+	<form action="#" method="post" name="cForm">
+		<ul>
+			<li>
+				<label>姓名:</label>
+				<input type="text" name="yourname" placeholder="Username"  required/>
+			</li>
+		</ul>
+		
+	</form>
+</div>
+</body>
+</html>
