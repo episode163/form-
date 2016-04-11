@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>表单美化--下拉列表</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!-- <link rel="stylesheet" type="text/css" href="Css/reset.css"> -->
+    <style type="text/css">
+		body{
+			font: 14px/28px '微软雅黑';
+			background: #333;
+		}
+		#box{
+			background: #FFF;
+			width: 500px;
+			height: 326px;
+			border: 3px solid #000;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			margin: -163px 0 0 -250px;
+		}
+		.province{
+			width: 320px;
+			height: 42px;
+			background: #C00;
+			margin: 80px auto;
+			position: relative;
+			/*padding-left: 15px;*/
+		}
+		.province strong{
+			width: 48px;
+			height: 42px;
+			line-height: 42px;
+			display: block;
+			color: #FFF;
+			float: left;
+			padding-left: 10px;
+			padding-right: 10px;
+		}
+		#selectedProvince{
+			width: 200px;
+			height: 28px;
+			background: #FFF;
+			display: block;
+			float: left;
+			margin-top: 7px;
+			background:  url(images/province_sprites.png) no-repeat  #FFF 190px 2px;
+			padding-left: 8px;
+			color: #CCC;
+			cursor: pointer;
+		}
+
+		.province ul{
+			clear: both;
+			width: 318px;
+			height: auto;
+			line-height: 30px;
+			padding: 0;
+			position: absolute;
+			margin-top: 42px;
+			left: 0px;
+			border-left: 1px solid #DFDFDF;
+			border-right: 1px solid #DFDFDF;
+			display: none;
+			z-index:101;
+			/*ul显示在layer的上方*/
+		}
+		/*#allProvince的权重比.province ul要高，导致.show,.hide不执行*/
+		.province li{
+			list-style-type: none; 
+			height: 30px;
+			border-bottom: 1px solid #DFDFDF;
+			background: #FFF;
+
+		}
+		.province ul li b{
+			width: 40px;
+			text-align: center;
+			font-weight: bold;
+			padding: 0 10px;
+			display: inline-block;
+		}
+		.province ul li span{
+			padding-right: 15px;
+			cursor: pointer;
+		}
+		.province ul li span:hover{
+			color: #C00;
+		}
+		#layer{
+			width: 100%;
+			height: 100%;
+			background: #FFF;
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index:100;
+			/*以上设置把下拉框遮住了*/
+			filter:alpha(opacity=0);
+			opacity: 0;
+			/*兼容火狐*/
+			display: none;
+		}
+		.show{
+			color:#ccc;
+			background-position: 190px -17px;
+		}
+		.hide{
+			color:#000;
+			background-position: 190px 1px;
+		}
+    </style>
+    <script type="text/javascript">
+    //点击鼠标时同时触发两个事件
+    function addLoadEvent(func) {
+    	var oldonload = window.onload;
+    	if(typeof window.onload != "function") {
+    		window.onload = func;
+    	}
+    	else {
+    		window.onload = function () {
+    			oldonload();
+    			func();
+    		}
+    	}
+    }
+    function getDom(id) {
+    	return document.getElementById(id);
+    }
+    function showProvince() {
+    	// alert("test");
+    	/*getDom("selectedProvince").onclick = function () {
+    		getDom("allProvince").style = 'display:block';//等价于XX.style.display="block"
+    		getDom("selectedProvince").style.backgroundPosition = "190px -17px";//注意是backgroundPosition不是background-position
+    	}*///优化如下
+    	getDom("selectedProvince").onclick = showAllProvince;
+    	selectProvince();
+        
+    }
+
+    function showAllProvince() {
+    	getDom("allProvince").style = 'display:block';//等价于XX.style.display="block"
+    	getDom('layer').style.display = 'block';
+    	getDom("selectedProvince").style.backgroundPosition = "190px -17px";//注意是backgroundPosition不是background-position
+    	getDom("selectedProvince").style.color = '#CCCCCC';
+    	// 优化上述代码
+    	// getDom("selectedProvince").className = 'show';
+    	// 当点击非ul的部分时，ul收起来
+    	getDom('layer').onclick = function() {
+    		hideAllProvince();
+    	}
+    }
+
+    function hideAllProvince() {
+    	getDom("allProvince").style = 'display:none';//等价于XX.style.display="none"
+    	//注意是backgroundPosition不是background-position
+    	getDom('layer').style.display = 'none';
+    	getDom("selectedProvince").style.backgroundPosition = "190px 1px";
+    	getDom("selectedProvince").style.color = 'black';
+    	// 优化上述代码
+    	// getDom("selectedProvince").className = 'hide';
+    }
+    function selectProvince() {
+    	var pro = getDom("allProvince").getElementsByTagName("li");
+    	var links;
+    	for(var i=0,len=pro.length;i<len;i++) {
+    		links = getDom("allProvince").getElementsByTagName("span");
+    		for(var j=0,jlen=links.length;j<jlen;j++) {
+    			links[j].onclick = function() {
+    				getDom("selectedProvince").innerHTML = this.innerHTML;
+    				hideAllProvince();
+    			}
+    		}
+    	}
+    }
+    addLoadEvent(showProvince);
+   
+    </script>
+</head>
+
+<body>
+<div id="box">
+	<div class="province">
+		<strong>送货至:</strong>
+		<span id="selectedProvince">北京</span>
+			<ul id="allProvince">
+				<li><b>A</b><span>安徽</span></li>
+				<li><b>B</b><span>北京</span></li>
+				<li><b>C</b><span>重庆</span></li>
+				<li><b>F</b><span>福建</span></li>
+				<li><b>G</b><span>广东</span><span>广西</span></li>
+				<li><b>H</b><span>河南</span><span>河北</span><span>黑龙江</span></li>
+				<li><b>J</b><span>吉林</span></li>
+				<li><b>N</b><span>内蒙古</span></li>
+				<li><b>Q</b><span>青海</span></li>
+			</ul>
+	</div>
+</div>
+<div id="layer"></div>
+<!-- 当鼠标点击时不在下拉框，下拉框可以收起来 -->
+</body>
+</html>
